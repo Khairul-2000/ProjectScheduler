@@ -19,8 +19,6 @@ interface ProjectHistoryProps {
   onNewProject: () => void;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-
 export default function ProjectHistory({ onViewProject, onNewProject }: ProjectHistoryProps) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,7 +46,7 @@ export default function ProjectHistory({ onViewProject, onNewProject }: ProjectH
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_URL}/projects`);
+      const response = await fetch('http://0.0.0.0:8000/projects');
       if (!response.ok) {
         throw new Error('Failed to fetch projects');
       }
@@ -64,7 +62,7 @@ export default function ProjectHistory({ onViewProject, onNewProject }: ProjectH
 
   const handleViewProject = async (projectId: string) => {
     try {
-      const response = await fetch(`${API_URL}/projects/${projectId}`);
+      const response = await fetch(`http://0.0.0.0:8000/projects/${projectId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch project details');
       }
@@ -81,7 +79,7 @@ export default function ProjectHistory({ onViewProject, onNewProject }: ProjectH
     }
 
     try {
-      const response = await fetch(`${API_URL}/projects/${projectId}`, {
+      const response = await fetch(`http://0.0.0.0:8000/projects/${projectId}`, {
         method: 'DELETE',
       });
       if (!response.ok) {

@@ -24,8 +24,6 @@ interface ProjectResponse {
 
 type ViewMode = 'history' | 'form' | 'results';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<ProjectResponse | null>(null);
@@ -37,7 +35,7 @@ export default function Home() {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/generate-project-plan`, {
+      const response = await fetch('http://0.0.0.0:8000/generate-project-plan', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
